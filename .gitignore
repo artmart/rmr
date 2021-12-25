@@ -44,3 +44,4 @@ phpunit.phar
 /db_.sql
 /db.sql
 /.htaccess
+/backup.sql

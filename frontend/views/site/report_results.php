@@ -59,29 +59,48 @@ $query_params = [
          'chart'=>''    
     ],    
     
-    
-    
-    
-    
-    'amount-paid-per-booking'=>['title' => 'Amount paid per booking', 
-         'sql' => "SELECT id booking_id, created_iso, price->>'$.total' price, price->>'$.total_override' total_override,  ein FROM  bookings 
-                   where tax_rate = 0 and param_id ='$param_id' AND created_iso Between '$start' And '$end' ",
-         'columns'=>['booking_id', 'created_iso', 'price', 'ein'],
-         'chart'=>''
-         
-         
-    ],
-    
-    
-    
-    'individual-contractors-links'=>['title' => 'Individual contractors links', 
-         'sql' => "SELECT acquired_by, acquired_date, link_deleted, id, ip_number, cost, link_url, pa, da, anchor, tier, target_url, via_tier_1, via_tier_2, flagged_ip, paid_link
-                    FROM table_one WHERE acquired_by='$contractors_name' AND acquired_date Between '$start' And '$end';",
-         'columns'=>['acquired_by', 'acquired_date', 'link_deleted', 'id', 'ip_number', 'cost', 'link_url', 'pa', 'da', 'anchor', 'tier', 'target_url', 'via_tier_1', 'via_tier_2', 'flagged_ip', 'paid_link']
-    ],
-    'link-anchors'=>['title' => 'Link Anchors', 
-         'sql' => "SELECT target_url, anchor, pa, da, ds, ts, tier, ip_number, link_url FROM table_one WHERE target_url Like '%$url%';",
-         'columns'=>['target_url', 'anchor', 'pa', 'da', 'ds', 'ts', 'tier', 'ip_number', 'link_url']
+    'bookings-with-no-payments-made'=>['title' => 'Bookings With No Payments Made', 
+         'sql' => "SELECT 
+                    b.id booking_id, b.created_iso, 
+                    b.status, 
+                    b.email, 
+                    b.phone, 
+                    b.customer->>'$.first_name' customer_first_name,
+                    b.customer->>'$.last_name'customer_last_name,
+                    b.customer->>'$.company' customer_company,
+                    b.customer->>'$.customer_street_address' customer_street_address, 
+                    b.customer->>'$.customer_city' customer_city,
+                    b.customer->>'$.customer_country' customer_country,
+                    b.customer->>'$.customer_postcode' customer_postcode,
+                    b.vehicle, 
+                    b.packages, 
+                    b.extras,
+                    b.event_name,	                    
+                    b.event->'$.event_date_us' event_date_us,
+                    b.event->'$.event_date_iso' event_date_iso,     
+                    -- b.venue,
+                    b.price->>'$.total' price_total, 
+                    b.price->>'$.total_override' price_total_override,
+                    b.price->>'$.remaining_balance' price_remaining_balance,
+                    b.price->>'$.coupon' price_coupon,
+                    IF(b.price->>'$.coupon'='null', 0, b.price->>'$.total'-b.price->>'$.total_override') total_of_discounts,
+                    
+                    -- b.notes,
+                    b.signature_required,	
+                    b.signature,	
+                    b.travel->'$.kilometers' travel_kilometers,
+                    b.travel->'$.miles' travel_miles,	
+                    b.template,	
+                    -- b.taxjar,	
+                    b.ein,	
+                    b.tax_rate
+                   FROM bookings b
+                   WHERE b.id NOT IN (SELECT p.booking_id FROM payments p)
+                   AND b.param_id = '$param_id' AND b.created_iso Between '$start' And '$end'",
+         'columns'=>['booking_id', 'created_iso', 'status', 'email', 'phone', 'customer_first_name', 'customer_last_name', 'customer_company', 'customer_street_address', 'customer_city',
+                     'customer_country', 'customer_postcode', 'vehicle', 'packages', 'extras', 'event_name', 'event_date_us', 'event_date_iso', 'price_total', 'price_total_override',
+                     'price_remaining_balance', 'price_coupon', 'total_of_discounts', 'signature_required', 'signature', 'travel_kilometers', 'travel_miles', 'template', 'ein', 'tax_rate'],
+         'chart'=>'' //'taxjar', 'venue', 'notes',    
     ],
 
 ];

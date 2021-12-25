@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use frontend\models\Accounts;
 
 $this->title = 'Account Parameters';
 $this->params['breadcrumbs'][] = $this->title;
@@ -21,21 +22,30 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
 
             //'id',
             //'user_id',
-          /*  ['attribute' => 'asin', 'format' =>'raw',
-                'value'=>function($model) use ($marketplacies){$amazon_mws_endpoint_array = ArrayHelper::map($marketplacies, 'country_code', 'amazon_mws_endpoint');
-                            return  $asin = '<a href="'.$amazon_mws_endpoint_array[$model->amazon_marketplace].'/dp/'.$model->asin.'" target="_blank">'.$model->asin.'</a>';                 
+            ['attribute' => 'Business Name', 'format' =>'html',
+                'value'=>function($model){$account = Accounts::find()->where(['param_id' =>$model->id])->one();
+                            return  '<a href="/params/view?id='.$model->id.'" target="_blank">'.$account->business_name.'</a>';                 
                         }
             ],
-            */
-            'url', //:url
-            'key',
-            'secret',
+            
+            //'url', //:url
+            ['attribute' => 'url', 'format' =>'html',
+                'value'=>function($model){return  '<a href="/params/view?id='.$model->id.'" target="_blank">'.$model->url.'</a>';}
+            ],            
+            //'key',
+            ['attribute' => 'key', 'format' =>'html',
+                'value'=>function($model){return  '<a href="/params/view?id='.$model->id.'" target="_blank">'.$model->key.'</a>';}
+            ],
+            //'secret',
+            ['attribute' => 'secret', 'format' =>'html',
+                'value'=>function($model){return  '<a href="/params/view?id='.$model->id.'" target="_blank">'.$model->secret.'</a>';}
+            ],
             //'scope',
             /*
             [

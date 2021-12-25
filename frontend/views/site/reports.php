@@ -25,19 +25,11 @@ ini_set('max_execution_time', 300);
 $query_params = [
     'tax-exempt-bookings'=>['title' => 'Tax exempt bookings', 'filters'=>['start_end', 'tax_rate'], 'report_type'=>'standard'],
     'tax-collected-total'=>['title' => 'Tax collected total', 'filters'=>['start_end', 'tax_rate'], 'report_type'=>'standard'],
-    
     'booking-report-results'=>['title' => 'Booking Results', 'filters'=>['start_end', 'tax_rate', 'booking_id', 'unit', 'unit_type', 'status'], 'report_type'=>''],
+    'list-chart-of-payments-via-method'=>['title' => 'List/chart of payments via method', 'filters'=>['start_end'], 'report_type'=>'standard1'],    
+    'bookings-with-no-payments-made'=>['title' => 'Bookings With No Payments Made', 'filters'=>['start_end'], 'report_type'=>'standard'],
     
-    'sales_report'=>['title' => 'sales_report', 'filters'=>['start_end', 'tax_rate'], 'report_type'=>'standard1'],
-    
-    
-    'amount-paid-per-booking'=>['title' => 'Amount paid per booking', 'filters'=>['start_end']],
-    
-    
-    
-    
-    //'individual-contractors-links'=>['title' => 'Individual contractors links', 'filters'=>['start_end', 'contractors_name']],
-    //'link-anchors'=>['title' => 'Link Anchors', 'filters'=>['url']],
+
 ];
 
 $this->title = $query_params[$query]['title'];

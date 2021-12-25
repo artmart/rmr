@@ -96,12 +96,14 @@ use yii\widgets\ActiveForm;
 		//	endDate: end,
 			autoUpdateInput: false,
 			ranges: {
-				'Today': [moment(), moment()],
-				'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-				'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-				'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+				'Next 7 Days': [moment(), moment().add(6, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+				//'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
 				'This Month': [moment().startOf('month'), moment().endOf('month')],
-				'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                
+                'Last Year': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
+				'This Year': [moment().startOf('year'), moment().endOf('year')],
 			}
 		}, cb);
 
