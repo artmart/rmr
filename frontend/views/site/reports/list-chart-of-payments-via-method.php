@@ -7,6 +7,11 @@ th, td { white-space: nowrap; }
     div.container {
         width: 80%;
     }
+ 
+ th, td { white-space: nowrap; }
+    div.dataTables_wrapper {
+        margin: 0 auto;
+    }
 </style>
 <?php
 ini_set('memory_limit', '512M');

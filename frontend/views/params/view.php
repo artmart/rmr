@@ -18,9 +18,13 @@ $reports .= Html::a('<span class="glyphicon glyphicon-folder-open"></span> Tax e
 $reports .= Html::a('<span class="glyphicon glyphicon-folder-open"></span> Tax collected total', ['/site/reports/tax-collected-total?param_id='.$model->id], ['data-pjax' => 0]).'<br/>';
 $reports .= Html::a('<span class="glyphicon glyphicon-folder-open"></span> Booking Results', ['/site/reports/booking-report-results?param_id='.$model->id], ['data-pjax' => 0]).'<br/>';
 $reports .= Html::a('<span class="glyphicon glyphicon-folder-open"></span> List/chart of payments via method', ['/site/reports/list-chart-of-payments-via-method?param_id='.$model->id], ['data-pjax' => 0]).'<br/>';
-
-
 $reports .= Html::a('<span class="glyphicon glyphicon-folder-open"></span> Bookings With No Payments Made', ['/site/reports/bookings-with-no-payments-made?param_id='.$model->id], ['data-pjax' => 0]).'<br/>';
+$reports .= Html::a('<span class="glyphicon glyphicon-folder-open"></span> Bookings With An Extra', ['/site/reports/bookings-with-an-extra?param_id='.$model->id], ['data-pjax' => 0]).'<br/>';
+$reports .= Html::a('<span class="glyphicon glyphicon-folder-open"></span> List Of Bookings With Multiple Extras', ['/site/reports/list-of-bookings-with-multiple-extras?param_id='.$model->id], ['data-pjax' => 0]).'<br/>';
+$reports .= Html::a('<span class="glyphicon glyphicon-folder-open"></span> List Of Bookings With Specific Unit Types', ['/site/reports/list-of-bookings-with-specific-unit-types?param_id='.$model->id], ['data-pjax' => 0]).'<br/>';
+$reports .= Html::a('<span class="glyphicon glyphicon-folder-open"></span> List Of Bookings With Specific Unit', ['/site/reports/list-of-bookings-with-specific-unit?param_id='.$model->id], ['data-pjax' => 0]).'<br/>';
+$reports .= Html::a('<span class="glyphicon glyphicon-folder-open"></span> Time Between Lead Submitted And Converted', ['/site/reports/time-between-lead-submitted-and-converted?param_id='.$model->id], ['data-pjax' => 0]).'<br/>';
+
 
 ?>
 <div class="params-view">

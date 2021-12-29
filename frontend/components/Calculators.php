@@ -55,7 +55,7 @@ class Calculators extends BaseObject
         if($res){     
             //foreach($result as $res){
                 
-            $model = Accounts::find()->where(['param_id'=>$param_id, 'business_name'=>$res->business_name, 'business_website'=>$res->business_website, 'business_address' => $res->business_address])->all();
+            $model = Accounts::find()->where(['business_name'=>$res->business_name, 'business_website'=>$res->business_website, 'business_address' => $res->business_address])->all();
     		if(count($model)==0){
 			    $new_model = new Accounts;
                 $new_model->param_id = $param_id;
@@ -112,7 +112,7 @@ class Calculators extends BaseObject
                 $new_model->travel = json_encode($res->travel);
                 $new_model->template = json_encode($res->template);
                 $new_model->taxjar = json_encode($res->taxjar);
-                $new_model->ein = "$res->ein";
+                $new_model->ein = json_encode($res->ein);
                 $new_model->tax_rate = "$res->tax_rate";
                 
                 $new_model->save(); 
@@ -141,7 +141,7 @@ class Calculators extends BaseObject
                 $new_model->status = $res->status;
                 $new_model->activity = json_encode($res->activity);
                 $new_model->event = json_encode($res->event);
-                $new_model->converted_bookings = $res->converted_bookings;
+                $new_model->converted_bookings = json_encode($res->converted_bookings);
        
                 $new_model->save(); 
                 }

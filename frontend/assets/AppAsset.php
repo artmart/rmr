@@ -19,7 +19,7 @@ class AppAsset extends AssetBundle
         'vendor/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css',
         'vendor/datatables.net-responsive-bs/css/responsive.bootstrap.min.css',
         //'vendor/datatables.net-scroller-bs/css/scroller.bootstrap.min.css',   
-        //'vendor/bootstrap-select/css/bootstrap-select.min.css',     
+        'vendor/bootstrap-select/css/bootstrap-select.min.css',     
         'vendor/bootstrap-daterangepicker/daterangepicker.css',
         'css/site.css',
     ];
@@ -40,7 +40,7 @@ class AppAsset extends AssetBundle
         'vendor/datatables.net-responsive/js/dataTables.responsive.min.js',
         'vendor/datatables.net-responsive-bs/js/responsive.bootstrap.js',
         //'vendors/datatables.net-scroller/js/datatables.scroller.min.js',
-        //'vendor/bootstrap-select/js/bootstrap-select.min.js',
+        'vendor/bootstrap-select/js/bootstrap-select.min.js',
         'vendor/bootstrap-daterangepicker/daterangepicker.js',
         
         'vendor/highcharts/highcharts.js',

@@ -28,8 +28,11 @@ $query_params = [
     'booking-report-results'=>['title' => 'Booking Results', 'filters'=>['start_end', 'tax_rate', 'booking_id', 'unit', 'unit_type', 'status'], 'report_type'=>''],
     'list-chart-of-payments-via-method'=>['title' => 'List/chart of payments via method', 'filters'=>['start_end'], 'report_type'=>'standard1'],    
     'bookings-with-no-payments-made'=>['title' => 'Bookings With No Payments Made', 'filters'=>['start_end'], 'report_type'=>'standard'],
-    
-
+    'bookings-with-an-extra'=>['title' => 'Bookings With An Extra', 'filters'=>['start_end'], 'report_type'=>'standard'],
+    'list-of-bookings-with-multiple-extras'=>['title' => 'List Of Bookings With Multiple Extras', 'filters'=>['start_end', 'extras'], 'report_type'=>'standard'],
+    'list-of-bookings-with-specific-unit-types'=>['title' => 'List Of Bookings With Specific Unit Types', 'filters'=>['start_end', 'unit_type_multiple'], 'report_type'=>'standard'],
+    'list-of-bookings-with-specific-unit'=>['title' => 'List Of Bookings With Specific Unit', 'filters'=>['start_end', 'unit_multiple'], 'report_type'=>'standard'],
+    'time-between-lead-submitted-and-converted'=>['title' => 'Time Between Lead Submitted And Converted', 'filters'=>['event_types'], 'report_type'=>'standard'],
 ];
 
 $this->title = $query_params[$query]['title'];
@@ -74,13 +77,20 @@ foreach($query_params[$query]['filters'] as $filter){
 	    </div>
     <?php } 
    
-/*
-    if($filter== 'contractors_name'){?>
-		<div class="form-group">
-            <input type="text" class="form-control" id="contractors_name" name="contractors_name" placeholder="Contractors Name">
+    if($filter== 'unit_type_multiple'){  
+        $unittype = frontend\models\Unittypes::find()->where(['param_id'=> $param_id])->asArray()->all();
+        ?>
+		<div class="form-group col-md-2">
+            <label for="unit_type_multiple">Unit Type</label>
+            <select class="form-control selectpicker" id="unit_type_multiple" name="unit_type_multiple[]" multiple>
+                <option value="">-Select-</option>
+            <?php if(count($unittype)>0){
+                foreach($unittype as $ut){ ?>
+				<option value="<?=$ut['id']?>"><?=$ut['label']?></option>
+                <?php }} ?>
+			</select>
 	    </div>
     <?php }
-    */
        
     if($filter== 'unit_type'){  
         $unittype = frontend\models\Unittypes::find()->where(['param_id'=> $param_id])->asArray()->all();
@@ -96,6 +106,20 @@ foreach($query_params[$query]['filters'] as $filter){
 			</select>
 	    </div>
     <?php } 
+    if($filter== 'unit_multiple'){  
+        $units = frontend\models\Units::find()->where(['param_id'=> $param_id])->asArray()->all();
+        ?>
+		<div class="form-group col-md-2">
+            <label for="unit">Unit</label>
+            <select class="form-control selectpicker" id="unit_multiple" name="unit_multiple[]" multiple>
+                <option value="">-Select-</option>
+            <?php if(count($units)>0){
+                foreach($units as $u){ ?>
+				<option value="<?=$u['id']?>"><?=$u['label']?></option>
+                <?php }} ?>
+			</select>
+	    </div>
+    <?php }    
     
     if($filter== 'unit'){  
         $units = frontend\models\Units::find()->where(['param_id'=> $param_id])->asArray()->all();
@@ -124,7 +148,36 @@ foreach($query_params[$query]['filters'] as $filter){
                 <?php } ?>
 			</select>
 	    </div>
-    <?php }           
+    <?php }
+    if($filter== 'extras'){  
+       $extras = frontend\models\Extras::find()->where(['param_id'=> $param_id])->asArray()->all();;
+        ?>
+		<div class="form-group col-md-2">
+            <label for="status">Extras</label>
+            <select class="form-control selectpicker" id="extras" name="extras[]" multiple>
+                <option value="">-Select-</option>
+                <?php if(count($extras)>0){
+                foreach($extras as $u){ ?>
+				<option value="<?=$u['id']?>"><?=$u['label']?></option>
+                <?php }} ?>
+			</select>
+	    </div>
+    <?php }  
+    
+    if($filter== 'event_types'){  
+       $event_types = frontend\models\Eventtypes::find()->where(['param_id'=> $param_id])->asArray()->all();;
+        ?>
+		<div class="form-group col-md-2">
+            <label for="status">Event types</label>
+            <select class="form-control selectpicker" id="event_types" name="event_types[]" multiple>
+                <option value="">-Select-</option>
+                <?php if(count($event_types)>0){
+                foreach($event_types as $u){ ?>
+				<option value="<?=$u['label']?>"><?=$u['label']?></option>
+                <?php }} ?>
+			</select>
+	    </div>
+    <?php }          
 } 
 ?>  
 <button class="btn btn-primary" style="margin-top: 24px;" onclick="showValues()">Run</button>
@@ -150,9 +203,9 @@ $(document).ready(function(){showValues();});
 <script type="text/javascript">
 $("#my_loader").css("display", "none");
 	$(function() {
-	//	$(".selectpicker").selectpicker({
-	//		noneSelectedText: 'Select SKU'
-	//	});
+		$(".selectpicker").selectpicker({
+			noneSelectedText: '- Select -'
+		});
 
 		var start = moment().subtract(29, 'days');
 		var end = moment();
